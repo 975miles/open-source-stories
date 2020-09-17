@@ -1,0 +1,25 @@
+extends ./lay
+
+block title
+    | Home
+
+block content
+    center
+        h1 Open Source Scripture
+    .row#homeMenu(style="margin:10px 0")
+        button.home-button.home-button-big.home-button-left(onclick="expand('read')" title="Read books that have been finished.") read
+        div#readMenu
+            .row#homeMenu
+                a.home-button.home-button-left(href="http://google.com" title="Read a random published book.") random
+                button.home-button.home-button-middle(onclick="collapse('read')") back
+                a.home-button.home-button-right(href="/library" title="Browse all of the published books.") library
+        div#contributeMenu
+            .row#homeMenu
+                a.home-button.home-button-left(href="/b/a" title="Find a random unfinished book for you to contribute to.") continue
+                button.home-button.home-button-middle(onclick="collapse('contribute')") back
+                a.home-button.home-button-right(href="http://google.com" title="Create a new book - give a title, tweak some settings, and let the internet run loose!") new
+        button.home-button.home-button-big.home-button-right(onclick="expand('contribute')" title="Add to books or create your own!") write
+    p Open Source Scripture is a website where people make books together, one page per person, using only the information from the last few pages.
+
+block js
+    script(src="/js/home.js")

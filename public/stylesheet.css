@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+body {
+    font-family: 'Source Code Pro', monospace;
+    background-color: #89b66f;
+    background-image: url(/bg.png);
+}
+
+
+#homeMenu {
+    flex-wrap: nowrap;
+}
+
+.home-button {
+    width: 30%;
+    text-align: center;
+    font-size: 5vw;
+    padding: 50px 0;
+    border: 1px solid #0000001f;
+}
+
+.home-button:focus {
+    outline: none;
+}
+
+.home-button-big {
+    width: 45%;
+}
+
+.home-button-left {
+    border-radius: 600px 0 0 600px;
+    margin-left: 5%;
+}
+
+.home-button-right {
+    border-radius: 0 600px 600px 0;
+    margin-right: 5%;
+}
+
+
+.home-button-middle {
+    background-color: #707070;
+    color: #000000;
+}
+
+.home-button-big.home-button-left {
+    background-color: #4fb682;
+    color: #4b491c;
+}
+
+.home-button-big.home-button-right {
+    background-color: #a7722e;
+    color: #33b0b5;
+}
+
+#contributeMenu .home-button-left {
+    background-color: #6d888a;
+    color: #c9c9c9;
+}
+
+#contributeMenu .home-button-right {
+    background-color: #4a4e4f;
+    color: #b59191;
+}
+
+#readMenu .home-button-left {
+    background-color: #7fc9ce;
+    color: #8d7800;
+}
+
+#readMenu .home-button-right {
+    background-color: #9f54d5;
+    color: #d6c564;
+}
+
+
+#paper {
+    width: 500px;
+    height: 350px;
+}
+
+.jumbotron {
+    padding: 8px;
+    margin: 0;
+}
+
+.jumbotron p {
+    margin: 0;
+}

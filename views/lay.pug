@@ -1,0 +1,49 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        link(rel="icon" href="/icon.png")
+
+        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css")
+        link(rel="stylesheet" href="/stylesheet.css")
+
+        block head
+
+        title
+            block title
+            |  | OSS
+    
+    body
+        nav.navbar.navbar-expand-lg.navbar-dark.bg-success.sticky-top
+            a.navbar-brand(href="/")
+                img.d-inline-block.align-top(src="/icon.png" alt="" loading="lazy")
+                span(style="margin-left:3px") OSS
+            button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+                span.navbar-toggler-icon
+            div.collapse.navbar-collapse#navbarSupportedContent
+                ul.navbar-nav.mr-auto
+                    li.nav-item
+                        a.nav-link(href="https://github.com/975miles/open-source-scripture")
+                            img(src="/github.png" height="24")
+                if (req.user != undefined)
+                    button.btn.btn-outline-light.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 4px 8px")
+                        img.rounded(src=req.user.avatarURL+"?size=20&nt" style="margin-top:-3px")
+                        span(style="margin-left:3px")=req.user.name
+                    div.dropdown-menu.dropdown-menu-right
+                        a.dropdown-item(href="/") Placeholder
+                        div.dropdown-divider
+                        a.dropdown-item(href="/logout") Logout
+                else
+                    a.btn.btn-light(href="/login?returnTo="+req.originalUrl style="padding: 4px 8px") Login
+
+        div.container-fluid
+            block content
+                p no content here!!!
+        
+        script(src="https://code.jquery.com/jquery-3.5.1.js")
+        script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")
+        script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js")
+        script(src="/js/main.js")
+        block js
