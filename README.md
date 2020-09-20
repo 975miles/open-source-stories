@@ -1,2 +1,2 @@
-# open-source-scripture
+# open-source-stories
  

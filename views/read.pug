@@ -1,0 +1,31 @@
+extends ./lay
+include ./view-settings
+
+block title
+    = `Reading ${book.title}`
+
+block content
+    h1= book.title
+    p.lead
+        | An open source story organised by 
+        span.page-author(data-author=book.owner)
+    +viewSettingsButton()
+    each page in pages
+        hr
+        div.jumbotron.border.border-dark
+            p.text-muted
+                = `Page ${page.pageNum} by `
+                span.page-author(data-author=page.author) (loading...)
+                = ` at ${page.createdAt.toGMTString()}`
+            case page.type
+                when 'Text'
+                    p.lead= page.content
+                when 'Drawing'
+                    img.page-drawing(src=`data:image/jpeg;base64,${page.content}`)
+    hr
+    a.btn.btn-sm.btn-primary(href="/b/random/read") Read another book
+
+append js
+    script.
+        var identificatorHost = !{`"${cfg.identificatorHost}"`};
+    script(src="/js/read.js")

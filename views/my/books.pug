@@ -1,0 +1,43 @@
+extends ../lay
+
+block title
+    | Your books
+
+block content
+    -
+        var yes;
+        /*
+        leave this variable here
+        this variable is important
+        do not remove this variable
+        this is the holy variable
+        */
+    
+    h1 Your books
+    a.btn.btn-primary(href="/b/new") Create new
+    div.custom-control.custom-checkbox
+        input.custom-control-input#finishedCheck(type="checkbox" onchange="changeFilters()" checked)
+        label.custom-control-label(for="finishedCheck") Show finished books
+    div.custom-control.custom-checkbox
+        input.custom-control-input#unfinishedCheck(type="checkbox" onchange="changeFilters()" checked)
+        label.custom-control-label(for="unfinishedCheck") Show unfinished books
+    div#books
+        each book in books
+            p
+                a(href=`/b/${book.id}` class=(book.finished ? null : 'unfinished-book') data-finished=String(book.finished))
+                    =book.title+' ('
+                    if book.finished
+                        =`a ${book.pages} page book`
+                    else
+                        =`${book.pagesDone}/${book.pages} pages done`
+                    | )
+
+
+append js
+    script.
+        function changeFilters() {
+            $('[data-finished="true"]')[$('#finishedCheck').prop('checked') ? 'show' : 'hide']();
+            $('[data-finished="false"]')[$('#unfinishedCheck').prop('checked') ? 'show' : 'hide']();
+        }
+
+        changeFilters();

@@ -1,44 +1,83 @@
 extends ./lay
+include ./view-settings
 
-block head
+append head
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawingboard.js/0.4.6/drawingboard.css")
 
-block js
+append js
     script(src="https://cdnjs.cloudflare.com/ajax/libs/drawingboard.js/0.4.6/drawingboard.min.js")
+    -
+        var tempBook = {...book};
+        delete tempBook.title;
+    script.
+        var book = !{JSON.stringify(book)};
     script(src="/js/contribute.js")
 
 block title
-    | Contributing
+    | Contributing to 
+    if book.titleAlwaysVisible
+        = book.title
+    else
+        | a book
 
 block content
-    p
-        i You're making a contribution to a book called...
-    
-    h1 Da Gators invade!!!
+    if !book.titleAlwaysVisible && (pages.length > 0 && pages[pages.length - 1].pageNum - book.viewDistance <= 0)
+        p: i You're making a contribution to a book with a hidden title.
+    else
+        p: i You're making a contribution to a book called...
+        h1
+            img.rounded.border.border-dark(src=`${cfg.identificatorHost}/avatar/${book.owner}.png?size=25`)
+            span(style="margin-left:8px")= book.title
+    +viewSettingsButton()
 
     hr
-    p (...44 unseen pages are here)
-    hr
-    
-    div.jumbotron.border.border-dark
-        p.text-muted Page 45
-        p.lead then da gators killed jim
-    hr
+    if pages.length > 0
+        -
+            var unseenPages = pages[0].pageNum - 1;
+        if unseenPages > 0
+            p= `(...${unseenPages} unseen pages are here)`
+            hr
+        
+        each page in pages
+            div.jumbotron.border.border-dark
+                p.text-muted= `Page ${page.pageNum}`
+                case page.type
+                    when 'Text'
+                        p.lead= page.content
+                    when 'Drawing'
+                        img.page-drawing(src=`data:image/jpeg;base64,${page.content}`)
+                    
+            hr
+        
+    -
+        var pageNum = (pages.length > 0 ? pages[pages.length - 1].pageNum + 1 : 1);
     
     div.jumbotron.border.border-dark#contribution
-        p.text-muted Page 46 (Your page)
+        p.text-muted
+            | Page 
+            span#pageNum= pageNum
+            |  (Your page)
         br
-        ul.nav
-            li.nav-item
-                button.btn.btn-secondary.nav-link#textType(onclick="changeType('text')") Text
-            li.nav-item
-                button.btn.btn-secondary.nav-link#drawingType(onclick="changeType('drawing')") Drawing
+        ul.nav(class=(book.allowText && book.allowDrawing ? null : 'd-none'))
+            li.nav-item: button.btn.btn-secondary.nav-link#textType(onclick="changeType('text')") Text
+            li.nav-item: button.btn.btn-secondary.nav-link#drawingType(onclick="changeType('drawing')") Drawing
         div#textContribution
-            input(type="text" class="form-control" id="textContribution" placeholder="Enter the next part of the story...")
-        div#drawingContribution
-            div#paper
+            textarea#contributionText(class="form-control" rows=12 onkeydown="updateTextLength()" onkeyup="updateTextLength()" maxlength=book.maxPageLength placeholder="Enter the next part of the story...")
+            p.text-muted
+                span#textLength (loading...)
+                | /
+                span= book.maxPageLength
+        div#drawingContribution: div#paper
         br
-        button.btn.btn-lg.btn-danger Submit contribution
+        button.btn.btn-lg.btn-primary#submitButton(onclick="submit()") Submit contribution
+        div.custom-control.custom-checkbox
+            input.custom-control-input#newRandom(type="checkbox" checked)
+            label.custom-control-label(for="newRandom") Take me to another random unfinished book after submitting this
     
     hr
-    p (...54 more pages to come)
+    -
+        var pagesLeft = book.pages - pageNum;
+    if pagesLeft > 0
+        p= `(...${pagesLeft} more pages to come)`
+    else
+        p This is the last page!

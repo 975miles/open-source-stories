@@ -87,3 +87,16 @@ body {
 .jumbotron p {
     margin: 0;
 }
+
+.page-drawing {
+    max-width: 100%;
+    max-height: 314px;
+    width: 498px;
+
+    border-radius: .25rem;
+    border: 1px solid #0000001f;
+}
+
+.unfinished-book {
+    color: #927151;
+}

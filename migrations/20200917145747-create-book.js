@@ -14,11 +14,38 @@ module.exports = {
       owner: {
         type: Sequelize.STRING
       },
-      name: {
+      title: {
         type: Sequelize.STRING
       },
-      pageLimit: {
+      finished: {
+        type: Sequelize.BOOLEAN
+      },
+      pages: {
         type: Sequelize.INTEGER
+      },
+      maxPagesPerPerson: {
+        type: Sequelize.INTEGER
+      },
+      allowText: {
+        type: Sequelize.BOOLEAN
+      },
+      allowDrawing: {
+        type: Sequelize.BOOLEAN
+      },
+      defaultPageType: {
+        type: Sequelize.STRING
+      },
+      maxPageLength: {
+        type: Sequelize.INTEGER
+      },
+      viewDistance: {
+        type: Sequelize.INTEGER
+      },
+      titleAlwaysVisible: {
+        type: Sequelize.BOOLEAN
+      },
+      public: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

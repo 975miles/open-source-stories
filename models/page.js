@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Book extends Model {
+  class Page extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,28 +13,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  Book.init({
+  Page.init({
     id: {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4 // Or Sequelize.UUIDV1
     },
-    owner: DataTypes.STRING,
-    title: DataTypes.STRING,
-    finished: DataTypes.BOOLEAN,
-    pages: DataTypes.INTEGER,
-    maxPagesPerPerson: DataTypes.INTEGER,
-    allowText: DataTypes.BOOLEAN,
-    allowDrawing: DataTypes.BOOLEAN,
-    defaultPageType: DataTypes.STRING,
-    maxPageLength: DataTypes.INTEGER,
-    viewDistance: DataTypes.INTEGER,
-    titleAlwaysVisible: DataTypes.BOOLEAN,
-    public: DataTypes.BOOLEAN,
+    author: DataTypes.STRING,
+    book: DataTypes.STRING,
+    type: DataTypes.STRING,
+    content: DataTypes.STRING,
+    pageNum: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Book',
+    modelName: 'Page',
   });
-  return Book;
+  return Page;
 };

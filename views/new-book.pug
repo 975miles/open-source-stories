@@ -1,0 +1,61 @@
+extends ./lay
+
+append js
+    script(src="/js/new-book.js")
+
+block title
+    | Creating a book...
+
+block content
+    h1 Create a book
+
+    hr
+    label Title
+    input.form-control.form-control-lg#bookTitle(type="text" placeholder="Book title" minlength=limits.title.min maxlength=limits.title.max)
+    
+    hr
+    label Number of pages
+    input.form-control.mb-2#pageAmount(type="number" placeholder="Number of pages" min=limits.pages.min max=limits.pages.max value=25)
+
+    hr
+    label Maximum number of pages per writer
+    input.form-control.mb-2#maxPagesPerPerson(type="number" placeholder="Pages per person" min=limits.maxPagesPerPerson.min max=limits.maxPagesPerPerson.max value=limits.maxPagesPerPerson.min)
+    
+    -
+        var pageTypes = ['Text', 'Drawing']
+
+    hr
+    label Allowed page types
+    each i in pageTypes
+        div.custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox" id=`allow${i}` onchange="allowedPagesChanged()" checked)
+            label.custom-control-label(for=`allow${i}`)= i
+    
+    div#defaultPageType
+        hr
+        label Default page type for writers
+        select.form-control#defaultPageTypeSelect
+            each i in pageTypes
+                option(value=i)= i
+
+    div#maxPageLength
+        hr
+        label Maximum text page length (maximum characters in a text page)
+        input.form-control.mb-2#maxPageLengthInput(type="number" placeholder="Max page length" min=limits.maxPageLength.min max=limits.maxPageLength.max value=limits.maxPageLength.max)
+
+    hr
+    label View distance (how many of the previous pages writers can see)
+    input.form-control.mb-2#viewDistance(type="number" placeholder="View distance" min=limits.viewDistance.min max=limits.viewDistance.max value=5)
+
+    hr
+    div.custom-control.custom-checkbox
+        input.custom-control-input#titleAlwaysVisible(type="checkbox" checked)
+        label.custom-control-label(for="titleAlwaysVisible") Make the book's title always visible to writers regardless of the view distance
+
+    hr
+    div.custom-control.custom-checkbox
+        input.custom-control-input#publicCheck(type="checkbox" checked)
+        label.custom-control-label(for="publicCheck") Public story (this story can be found by anyone at random from the "write" button on the homepage)
+
+    hr
+    button.btn.btn-lg.btn-primary#submitButton(onclick="submit()") Submit
