@@ -2,10 +2,12 @@ extends ./lay
 include ./view-settings
 
 append head
-    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawingboard.js/0.4.6/drawingboard.css")
+    link(rel="stylesheet" href="/literallycanvas-0.4.13/css/literallycanvas.css")
 
 append js
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/drawingboard.js/0.4.6/drawingboard.min.js")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.min.js"></script>
+    script(src="/literallycanvas-0.4.13/js/literallycanvas.js")
     -
         var tempBook = {...book};
         delete tempBook.title;
@@ -67,7 +69,9 @@ block content
                 span#textLength (loading...)
                 | /
                 span= book.maxPageLength
-        div#drawingContribution: div#paper
+        div#drawingContribution
+            div#paper
+            button.btn.btn-sm.btn-secondary(onclick="downloadImg()") Download image
         br
         button.btn.btn-lg.btn-primary#submitButton(onclick="submit()") Submit contribution
         div.custom-control.custom-checkbox

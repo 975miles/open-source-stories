@@ -1,4 +1,4 @@
-extends ../lay
+extends ./lay
 
 block title
     | Your books
@@ -13,13 +13,13 @@ block content
         this is the holy variable
         */
     
-    h1 Your books
+    h1= title
     a.btn.btn-primary(href="/b/new") Create new
     div.custom-control.custom-checkbox
         input.custom-control-input#finishedCheck(type="checkbox" onchange="changeFilters()" checked)
         label.custom-control-label(for="finishedCheck") Show finished books
     div.custom-control.custom-checkbox
-        input.custom-control-input#unfinishedCheck(type="checkbox" onchange="changeFilters()" checked)
+        input.custom-control-input#unfinishedCheck(type="checkbox" onchange="changeFilters()")
         label.custom-control-label(for="unfinishedCheck") Show unfinished books
     div#books
         each book in books

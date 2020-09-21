@@ -35,7 +35,7 @@ router.get('/write', require('./requireAuth'), async (req, res) => {
                 author: req.user.id,
                 book: book.id
             }
-        }) < book.maxPagesPerPerson);
+        }) < book.maxPagesPerPerson)
             return res.redirect(`/b/${book.id}`);
     }
     res.send(`Tried ${findTries} times to find a book you haven't reached the contribution limit for, but couldn't find anything. Refresh to try again.`);
